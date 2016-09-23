@@ -1,0 +1,12 @@
+/* Empty. Add your own CSS if you like */
+p.content img{
+	height: 50%;
+	width: 100%;
+}
+p.content{
+	font-size: 0;
+	word-wrap: normal;
+}
+.list_title{
+	word-wrap: normal !important; 	
+}

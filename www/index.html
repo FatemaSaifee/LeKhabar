@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- lib/underscore js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script> 
+    <!-- add pouchdb -->
+    <!-- <script src="js/pouchdb-3.2.0.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/pouchdb/6.0.5/pouchdb.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="webspeaksApp">
+
+      <ion-pane ng-controller="AppController">
+
+          <ion-header-bar class="bar-calm">
+              <h1 class="title">WebSpeaks.in</h1>
+          </ion-header-bar>
+
+          <ion-content>
+
+              <ion-refresher pulling-text="Pull to Refresh..." on-refresh="refreshFeed()"></ion-refresher>
+
+              <ion-list>
+                  <ion-item ng-repeat="feed in feeds" class="">
+                      <ion-card>
+                        <p ng-bind-html="feed.content" class="content"></p>
+                        <ion-card-content>
+                          <ion-card-title class = "list_title">
+                            <a href="{{feed.link}}" ng-bind-html="feed.title"></a>
+                          </ion-card-title>
+                          <p ng-bind-html="feed.contentSnippet" class="description" ng-model= "description"></p>
+                        </ion-card-content>
+                      </ion-card>
+                      <!-- <a href="{{feed.link}}" ng-bind-html="feed.title" class="title"></a>
+                      <p ng-bind-html="feed.contentSnippet" class="description" ng-model= "description"></p>
+                      <div class="footer">
+                          <span class="author">{{feed.publishedDate | limitTo:16}}</span>
+                          <span class="list_image">
+                            <p ng-bind-html="feed.content" class="content"></p>
+                          </span>
+                      </div> -->
+                  </ion-item>
+              </ion-list>
+
+          </ion-content>
+
+      </ion-pane>
+
+    </body>
+</html>
