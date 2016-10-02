@@ -1,12 +1,19 @@
 /* Empty. Add your own CSS if you like */
-p.content img{
+.content img{
 	height: 50%;
 	width: 100%;
 }
-p.content{
+.content{
 	font-size: 0;
 	word-wrap: normal;
 }
 .list_title{
 	word-wrap: normal !important; 	
+}
+.news{
+	margin: 15px;	
+}
+.news img{
+	height: 100px;
+	width: 100px;
 }

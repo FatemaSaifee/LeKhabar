@@ -51,26 +51,48 @@
           <ion-content>
 
               <ion-refresher pulling-text="Pull to Refresh..." on-refresh="refreshFeed()"></ion-refresher>
-
+              <ion-nav-view></ion-nav-view>
               <ion-list>
-                  <ion-item ng-repeat="feed in feeds" class="">
-                      <ion-card>
-                        <p ng-bind-html="feed.content" class="content"></p>
-                        <ion-card-content>
-                          <ion-card-title class = "list_title">
-                            <a href="{{feed.link}}" ng-bind-html="feed.title"></a>
-                          </ion-card-title>
-                          <p ng-bind-html="feed.contentSnippet" class="description" ng-model= "description"></p>
-                        </ion-card-content>
-                      </ion-card>
-                      <!-- <a href="{{feed.link}}" ng-bind-html="feed.title" class="title"></a>
-                      <p ng-bind-html="feed.contentSnippet" class="description" ng-model= "description"></p>
-                      <div class="footer">
-                          <span class="author">{{feed.publishedDate | limitTo:16}}</span>
-                          <span class="list_image">
-                            <p ng-bind-html="feed.content" class="content"></p>
-                          </span>
-                      </div> -->
+                  <ion-item class="">
+                      <div class="row">
+                        <div class="col col-40 news" >
+                          <button ng-click="news_detail('1','toi_icon.png')">
+                            <img src="img/toi_icon.png">
+                          </button>
+                        </div>
+                        <div class="col col-40 news">
+                          <button ng-click="news_detail('2','ndtv_icon.png')">
+                            <img src="img/ndtv_icon.png">
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-40 news">
+                          <button ng-click="news_detail('3','hindustan_times_icon.png')">
+                            <img src="img/hindustan_times_icon.png">
+                          </button>
+                        </div>
+                        <div class="col col-40 news">
+                          <button ng-click="news_detail('4','cnn_icon.png')">
+                            <img src="img/cnn_icon.png">
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col col-40 news">
+                          <button ng-click="news_detail('5','cnbc_icon.jpg')">
+                            <img src="img/cnbc_icon.jpg">
+                          </button>
+                        </div>
+                        <div class="col col-40 news">
+                          <button ng-click="news_detail('6','hindu_icon.jpg')">
+                            <img src="img/hindu_icon.jpg">
+                          </button>
+                        </div>
+                      </div>
+                            
                   </ion-item>
               </ion-list>
 

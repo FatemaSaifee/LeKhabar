@@ -1,0 +1,22 @@
+<ion-list>
+                  <ion-item ng-repeat="feed in feeds" class="">
+                      <ion-card>
+                        <img *ngif="feed.media" src="feed.media" />
+                        <p *ngif="!feed.media" ng-bind-html="feed.content" class="content"></p>
+                        <ion-card-content>
+                          <ion-card-title class = "list_title">
+                            <a href="{{feed.link}}" ng-bind-html="feed.title"></a>
+                          </ion-card-title>
+                          <p ng-bind-html="feed.contentSnippet" class="description" ng-model= "description"></p>
+                        </ion-card-content>
+                      </ion-card>
+                      <!-- <a href="{{feed.link}}" ng-bind-html="feed.title" class="title"></a>
+                      <p ng-bind-html="feed.contentSnippet" class="description" ng-model= "description"></p>
+                      <div class="footer">
+                          <span class="author">{{feed.publishedDate | limitTo:16}}</span>
+                          <span class="list_image">
+                            <p ng-bind-html="feed.content" class="content"></p>
+                          </span>
+                      </div> -->
+                  </ion-item>
+              </ion-list>

@@ -25,26 +25,46 @@ app.run(function($ionicPlatform) {
   });
 })
 
+//Define routes
+app.config(function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+            .state('news_detail', {
+                url: '/news_detail/:feed',
+                templateUrl: "templates/news_detail.html",
+                cache: false
+            });
+        // $urlRouterProvider.otherwise('/');
+    });
+
 // Define module constants
 app.constant("config", {
-    'FEED_URL': 'http://timesofindia.indiatimes.com/rssfeeds/4719161.cms',
+    '1': 'http://timesofindia.indiatimes.com/rssfeeds/4719161.cms',
+    '2': 'http://gadgets.ndtv.com/rss/mobiles/feeds',
+    '3': 'http://www.hindustantimes.com/rss/bollywood/rssfeed.xml',
+    '4': 'http://rss.cnn.com/rss/edition_entertainment.rss',
+    '5': 'http://www.cnbc.com/id/10000110/device/rss/rss.html',
+    '6': 'http://www.thehindu.com/features/cinema/?service=rss',
     'PAGE_SIZE': 30
 });
 
 //controller
-app.controller("AppController", ['$scope', 'config', 'DAO', 'FeedService', '$ionicLoading', '$ionicPopup',
-    function($scope, config, DAO, FeedService, $ionicLoading, $ionicPopup) {
+app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedService', '$ionicLoading', '$ionicPopup',
+    function($scope, $state, config, DAO, FeedService, $ionicLoading, $ionicPopup) {
 
     $scope.feeds = [];  // Feeds to be shown on UI
     $scope.localFeeds = []; // Feeds from local DB
-
+    $scope.news_detail = function(id, icon){
+      console.log(config['1']);
+      $state.go('news_detail');
+      $scope.icon = 'img/' + icon;
+      $scope.getRemoteFeed(id);
+    };
     // Watch the feeds property
     // If new feed is found, add it to DB
     $scope.$watch("feeds", function(newPosts, oldPosts) {
-        if (newPosts.length) {
+        if (newPosts) {
             _.each(newPosts, function(newPost) {
 
-                // If the new post is not present in local DB
                 // add it to the DB
                 var exists = _.findWhere($scope.localFeeds, {link: newPost.link});
                 if (_.isUndefined(exists)) {
@@ -91,7 +111,7 @@ app.controller("AppController", ['$scope', 'config', 'DAO', 'FeedService', '$ion
     /**
      * Get the feeds from remote feeds API using FeedService
      */
-    $scope.getRemoteFeed = function() {
+    $scope.getRemoteFeed = function(id) {
         if (!$scope.isOnline()) {
             $ionicPopup.alert({
                 title: 'Oops!',
@@ -101,8 +121,9 @@ app.controller("AppController", ['$scope', 'config', 'DAO', 'FeedService', '$ion
                 $scope.$broadcast('scroll.refreshComplete');
             });
         } else {
+            console.log(id);
             FeedService
-                .getFeed({url: config.FEED_URL, count: config.PAGE_SIZE})
+                .getFeed({url: config[id], count: config.PAGE_SIZE})
                 .then(function(response) {
                     $scope.feeds = response;
                     $ionicLoading.hide();
@@ -193,6 +214,7 @@ app.service("FeedService", function($http, $q) {
         if (response.data && response.data.responseData && response.data.responseData.feed) {
             if (response.data.responseData.feed.entries) {
                 if (response.data.responseData.feed.entries.length) {
+                    console.log(response.data.responseData.feed.entries[0]);
                     return (response.data.responseData.feed.entries);
                 }
             }
@@ -225,3 +247,4 @@ app.service("DAO", function($q) {
     }
 
 });
+
