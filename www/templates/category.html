@@ -1,0 +1,11 @@
+<ion-list>
+	<ion-item ng-repeat="category in categories" class="">
+	  	<a ng-href = "/#/news_detail/{{id}}/{{category['name']}}">
+		  <ion-thumbnail item-left>
+		    <img ng-src="{{category['icon']}}">
+		  </ion-thumbnail>
+		  <h2>{{category['name']}}</h2>
+		  <ion-icon name="arrow-dropright"></ion-icon>
+		</a>
+	</ion-item>
+</ion-list>

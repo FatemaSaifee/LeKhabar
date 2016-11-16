@@ -27,18 +27,25 @@ app.run(function($ionicPlatform) {
 
 //Define routes
 app.config(function($stateProvider, $urlRouterProvider) {
-        $stateProvider
-            .state('news_detail', {
-                url: '/news_detail/:feed',
-                templateUrl: "templates/news_detail.html",
-                cache: false
-            });
-        // $urlRouterProvider.otherwise('/');
+  $stateProvider
+    .state('news_detail', {
+        url: '/news_detail/:id/:category',
+        templateUrl: "templates/news_detail.html",
+        cache: false,
+        controller: 'DetailController'
+    })
+    .state('categories', {
+        url: '/categories/:id',
+        templateUrl: "templates/category.html",
+        cache: false,
+        controller: 'CategoryController'
     });
+  // $urlRouterProvider.otherwise('/');
+});
 
 // Define module constants
 app.constant("config", {
-    '1': 'http://timesofindia.indiatimes.com/rssfeeds/4719161.cms',
+    '1': {'url': 'http://timesofindia.indiatimes.com/rssfeeds/4719161.cms', 'icon':'toi_icon.png'},
     '2': 'http://gadgets.ndtv.com/rss/mobiles/feeds',
     '3': 'http://www.hindustantimes.com/rss/bollywood/rssfeed.xml',
     '4': 'http://rss.cnn.com/rss/edition_entertainment.rss',
@@ -50,15 +57,10 @@ app.constant("config", {
 //controller
 app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedService', '$ionicLoading', '$ionicPopup',
     function($scope, $state, config, DAO, FeedService, $ionicLoading, $ionicPopup) {
-
+    $scope.config = config;
     $scope.feeds = [];  // Feeds to be shown on UI
     $scope.localFeeds = []; // Feeds from local DB
-    $scope.news_detail = function(id, icon){
-      console.log(config['1']);
-      $state.go('news_detail');
-      $scope.icon = 'img/' + icon;
-      $scope.getRemoteFeed(id);
-    };
+    
     // Watch the feeds property
     // If new feed is found, add it to DB
     $scope.$watch("feeds", function(newPosts, oldPosts) {
@@ -123,7 +125,7 @@ app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedServic
         } else {
             console.log(id);
             FeedService
-                .getFeed({url: config[id], count: config.PAGE_SIZE})
+                .getFeed({url: config[id]['url'], count: config.PAGE_SIZE})
                 .then(function(response) {
                     $scope.feeds = response;
                     $ionicLoading.hide();
@@ -248,3 +250,18 @@ app.service("DAO", function($q) {
 
 });
 
+app.controller("CategoryController", function($state,$scope, $stateParams, config) {
+  $scope.categories = [{name: 'Top stories', icon: 'img/top_stories.png'},
+                      {name: 'Entertainment', icon: 'img/entertainment.png'},
+                      {name: 'Finance', icon: 'img/finance.png'},
+                      {name: 'Top stories', icon: 'img/top_stories.png'},
+                      {name: 'Top stories', icon: 'img/top_stories.png'}];
+  $scope.id = $stateParams.id;
+});
+
+app.controller("DetailController", function($state,$scope, $stateParams, config) {
+  $scope.id = $stateParams.id;
+  $scope.icon = 'img/' + config[$scope.id]['icon'];
+  console.log($scope.icon);
+  $scope.getRemoteFeed($scope.id);
+});
