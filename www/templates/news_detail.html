@@ -5,6 +5,7 @@
 
               <ion-list>
                   <ion-item ng-repeat="feed in feeds" class="">
+
                     <ion-card>
                       <div class="list card">
                         <div class="item item-avatar">
@@ -22,6 +23,7 @@
                           <p>
                             <a href="#" class="subdued">{{feed.author}}</a>
                           </p>
+                          <a href="{{feed.link}}" class="pull-right">Read more</a>
                         </div>
 
                       </div>

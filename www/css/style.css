@@ -16,4 +16,22 @@
 .news img{
 	height: 100px;
 	width: 100px;
+	border: solid;
+}
+.cat-image {
+	width: 40px;
+	float: left;
+}
+.category_name {
+	margin-left: 50px;
+	padding-left: 10px;
+	font-size: 25px;
+	color: black;
+	padding-top: 10px;
+}
+.no-line {
+	text-decoration: none !important;
+}
+.pull-right {
+	float: right;
 }
