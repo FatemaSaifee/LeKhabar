@@ -1,37 +1,38 @@
-      
-          <ion-content>
+<a href="/#/categories/{{id}}">Back</a>
+          
+<ion-content>
 
-              <ion-refresher pulling-text="Pull to Refresh..." on-refresh="refreshFeed()"></ion-refresher>
+    <ion-refresher pulling-text="Pull to Refresh..." on-refresh="refreshFeed()"></ion-refresher>
 
-              <ion-list>
-                  <ion-item ng-repeat="feed in feeds" class="">
+    <ion-list>
+        <ion-item ng-repeat="feed in feeds" class="">
 
-                    <ion-card>
-                      <div class="list card">
-                        <div class="item item-avatar">
-                          <img src={{icon}}>
-                          <h2>{{feed.title}}</h2>
-                          <p>{{feed.publishedDate}}</p>
-                        </div>
-                        <div class="item item-body">
-                          
-                          <div *ngif="feed.mediaGroups[0].contents[0].url" class="content"><img src={{feed.mediaGroups[0].contents[0].url}} /></div>
-                          
-                          <p>
-                            {{feed.contentSnippet}}
-                          </p>
-                          <p>
-                            <a href="#" class="subdued">{{feed.author}}</a>
-                          </p>
-                          <a href="{{feed.link}}" class="pull-right">Read more</a>
-                        </div>
+          <ion-card>
+            <div class="list card">
+              <div class="item item-avatar">
+                <img src={{icon}}>
+                <h2>{{feed.title}}</h2>
+                <p>{{feed.publishedDate}}</p>
+              </div>
+              <div class="item item-body">
+                
+                <div *ngif="feed.mediaGroups[0].contents[0].url" class="content"><img src={{feed.mediaGroups[0].contents[0].url}} /></div>
+                
+                <p>
+                  {{feed.contentSnippet}}
+                </p>
+                <p>
+                  <a href="#" class="subdued">{{feed.author}}</a>
+                </p>
+                <a href="{{feed.link}}" class="pull-right">Read more</a>
+              </div>
 
-                      </div>
-                    </ion-card>
-                  </ion-item>
-              </ion-list>
+            </div>
+          </ion-card>
+        </ion-item>
+    </ion-list>
 
-          </ion-content>
+</ion-content>
 
      
     

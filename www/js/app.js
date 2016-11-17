@@ -49,8 +49,8 @@ app.constant("config", {
     '2': {'url': 'http://gadgets.ndtv.com/rss/mobiles/feeds','icon': 'ndtv_icon.png'},
     '3': {'url': 'http://www.hindustantimes.com/rss/bollywood/rssfeed.xml', 'icon': 'hindustan_times_icon.png'},
     '4': {'url': 'http://rss.cnn.com/rss/edition_entertainment.rss', 'icon': 'cnn_icon.png'},
-    '5': 'http://www.cnbc.com/id/10000110/device/rss/rss.html',
-    '6': 'http://www.thehindu.com/features/cinema/?service=rss',
+    '5': {'url': 'http://www.cnbc.com/id/10000110/device/rss/rss.html', 'icon': 'cnbc_icon.jpg'},
+    '6': {'url': 'http://www.thehindu.com/features/cinema/?service=rss', 'icon': 'hindu_icon.jpg'},
     'PAGE_SIZE': 30
 });
 
