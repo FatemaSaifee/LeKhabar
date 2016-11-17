@@ -45,12 +45,54 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 // Define module constants
 app.constant("config", {
-    '1': {'url': 'http://timesofindia.indiatimes.com/rssfeeds/4719161.cms', 'icon':'toi_icon.png'},
-    '2': {'url': 'http://gadgets.ndtv.com/rss/mobiles/feeds','icon': 'ndtv_icon.png'},
-    '3': {'url': 'http://www.hindustantimes.com/rss/bollywood/rssfeed.xml', 'icon': 'hindustan_times_icon.png'},
-    '4': {'url': 'http://rss.cnn.com/rss/edition_entertainment.rss', 'icon': 'cnn_icon.png'},
-    '5': {'url': 'http://www.cnbc.com/id/10000110/device/rss/rss.html', 'icon': 'cnbc_icon.jpg'},
-    '6': {'url': 'http://www.thehindu.com/features/cinema/?service=rss', 'icon': 'hindu_icon.jpg'},
+    '1': {
+      'Top stories': 'http://timesofindia.indiatimes.com/rssfeeds/4719161.cms', 
+      'Entertainment': 'http://timesofindia.indiatimes.com/rssfeeds/1081479906.cms',
+      'Finance': 'http://timesofindia.indiatimes.com/rssfeeds/1898055.cms',
+      'Sports': 'http://timesofindia.indiatimes.com/rssfeeds/4719148.cms',
+      'Technology': 'http://timesofindia.indiatimes.com/rssfeeds/5880659.cms',
+      'icon':'toi_icon.png' 
+    },
+    '2': {
+      'Top stories': 'http://gadgets.ndtv.com/rss/mobiles/feeds',
+      'Entertainment': 'http://feeds.feedburner.com/ndtvmovies-latest',
+      'Finance': 'http://feeds.feedburner.com/ndtvprofit-latest',
+      'Sports': 'http://feeds.feedburner.com/ndtvsports-latest',
+      'Technology': 'http://feeds.feedburner.com/gadgets360-latest',
+      'icon': 'ndtv_icon.png'
+    },
+    '3': {
+      'Top stories': 'http://www.hindustantimes.com/rss/bollywood/rssfeed.xml', 
+      'Entertainment': 'http://www.hindustantimes.com/rss/entertainment/rssfeed.xml',
+      'Finance': 'http://www.hindustantimes.com/rss/business/rssfeed.xml',
+      'Sports': 'http://www.hindustantimes.com/rss/sports/rssfeed.xml',
+      'Technology': 'http://www.hindustantimes.com/rss/tech/rssfeed.xml',
+      'icon': 'hindustan_times_icon.png'
+    },
+    '4': {
+      'Top stories': 'http://rss.cnn.com/rss/edition.rss', 
+      'Entertainment': 'http://rss.cnn.com/rss/edition_entertainment.rss',
+      'Finance': 'http://rss.cnn.com/rss/money_news_international.rss',
+      'Sports': 'http://rss.cnn.com/rss/edition_sport.rss',
+      'Technology': 'http://rss.cnn.com/rss/edition_technology.rss',
+      'icon': 'cnn_icon.png'
+    },
+    '5': {
+      'Top stories': 'http://www.cnbc.com/id/10000110/device/rss/rss.html',
+      'Entertainment': 'http://www.cnbc.com/id/10000110/device/rss/rss.html',
+      'Finance': 'http://www.cnbc.com/id/10001147/device/rss/rss.html',
+      'Sports': 'http://rss.cnn.com/rss/edition_sport.rss',
+      'Technology': 'http://www.cnbc.com/id/19854910/device/rss/rss.html',
+      'icon': 'cnbc_icon.jpg'
+    },
+    '6': {
+      'Top stories': 'http://www.thehindu.com/features/cinema/?service=rss',
+      'Entertainment': 'http://www.thehindu.com/features/friday-review/?service=rss',
+      'Finance': 'http://www.thehindu.com/business/?service=rss',
+      'Sports': 'http://www.thehindu.com/sport/?service=rss',
+      'Technology': 'http://www.thehindu.com/sci-tech/?service=rss', 
+      'icon': 'hindu_icon.jpg'
+    },
     'PAGE_SIZE': 30
 });
 
@@ -113,7 +155,7 @@ app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedServic
     /**
      * Get the feeds from remote feeds API using FeedService
      */
-    $scope.getRemoteFeed = function(id) {
+    $scope.getRemoteFeed = function(id, category) {
         if (!$scope.isOnline()) {
             $ionicPopup.alert({
                 title: 'Oops!',
@@ -124,7 +166,7 @@ app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedServic
             });
         } else {
             FeedService
-                .getFeed({url: config[id]['url'], count: config.PAGE_SIZE})
+                .getFeed({url: config[id][category], count: config.PAGE_SIZE})
                 .then(function(response) {
                     $scope.feeds = response;
                     $ionicLoading.hide();
@@ -176,7 +218,7 @@ app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedServic
     }
 
     // Initialize the feeds
-    $scope.initFeed();
+    // $scope.initFeed();
 }]);
 
 //load feeds from url
@@ -260,7 +302,8 @@ app.controller("CategoryController", function($state,$scope, $stateParams, confi
 
 app.controller("DetailController", function($state,$scope, $stateParams, config) {
   $scope.id = $stateParams.id;
+  $scope.category = $stateParams.category;
   $scope.icon = 'img/' + config[$scope.id]['icon'];
   console.log($scope.icon);
-  $scope.getRemoteFeed($scope.id);
+  $scope.getRemoteFeed($scope.id, $scope.category);
 });
