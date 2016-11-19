@@ -63,6 +63,8 @@ app.constant("config", {
       'Finance': 'http://timesofindia.indiatimes.com/rssfeeds/1898055.cms',
       'Sports': 'http://timesofindia.indiatimes.com/rssfeeds/4719148.cms',
       'Technology': 'http://timesofindia.indiatimes.com/rssfeeds/5880659.cms',
+      'World':'http://indianexpress.com/section/world/feed/',
+      'Health':'http://indianexpress.com/section/lifestyle/feed/',
       'icon':'toi_icon.png' 
     },
     '2': {
@@ -71,6 +73,9 @@ app.constant("config", {
       'Finance': 'http://feeds.feedburner.com/ndtvprofit-latest',
       'Sports': 'http://feeds.feedburner.com/ndtvsports-latest',
       'Technology': 'http://feeds.feedburner.com/gadgets360-latest',
+      'World':'http://indianexpress.com/section/world/feed/',
+      'Health':'http://indianexpress.com/section/lifestyle/feed/',
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
       'icon': 'ndtv_icon.png'
     },
     '3': {
@@ -79,6 +84,9 @@ app.constant("config", {
       'Finance': 'http://www.hindustantimes.com/rss/business/rssfeed.xml',
       'Sports': 'http://www.hindustantimes.com/rss/sports/rssfeed.xml',
       'Technology': 'http://www.hindustantimes.com/rss/tech/rssfeed.xml',
+      'World':'http://indianexpress.com/section/world/feed/',
+      'Health':'http://indianexpress.com/section/lifestyle/feed/',
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
       'icon': 'hindustan_times_icon.png'
     },
     '4': {
@@ -87,6 +95,9 @@ app.constant("config", {
       'Finance': 'http://rss.cnn.com/rss/money_news_international.rss',
       'Sports': 'http://rss.cnn.com/rss/edition_sport.rss',
       'Technology': 'http://rss.cnn.com/rss/edition_technology.rss',
+      'World':'http://indianexpress.com/section/world/feed/',
+      'Health':'http://indianexpress.com/section/lifestyle/feed/',
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
       'icon': 'cnn_icon.png'
     },
     '5': {
@@ -95,6 +106,9 @@ app.constant("config", {
       'Finance': 'http://www.cnbc.com/id/10001147/device/rss/rss.html',
       'Sports': 'http://rss.cnn.com/rss/edition_sport.rss',
       'Technology': 'http://www.cnbc.com/id/19854910/device/rss/rss.html',
+      'World':'http://indianexpress.com/section/world/feed/',
+      'Health':'http://indianexpress.com/section/lifestyle/feed/',
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
       'icon': 'cnbc_icon.jpg'
     },
     '6': {
@@ -103,7 +117,54 @@ app.constant("config", {
       'Finance': 'http://www.thehindu.com/business/?service=rss',
       'Sports': 'http://www.thehindu.com/sport/?service=rss',
       'Technology': 'http://www.thehindu.com/sci-tech/?service=rss', 
+      'World':'http://indianexpress.com/section/world/feed/',
+      'Health':'http://indianexpress.com/section/lifestyle/feed/',
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
       'icon': 'hindu_icon.jpg'
+    },
+    '7': {
+      'Top stories': 'http://indiatoday.intoday.in/rss/homepage-topstories.jsp',
+      'Entertainment': 'http://indianexpress.com/section/entertainment/feed/',
+      'Finance': 'http://indiatoday.intoday.in/rss/article.jsp?sid=34',
+      'Sports': 'http://indiatoday.intoday.in/rss/article.jsp?sid=41',
+      'Technology': 'http://indiatoday.intoday.in/rss/article.jsp?sid=2', 
+      'World':'http://indianexpress.com/section/world/feed/',
+      'Health':'http://indianexpress.com/section/lifestyle/feed/',
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
+      'icon': 'india_today.png'
+    },
+    '8': {
+      'Top stories': 'http://indianexpress.com/section/world/feed/',
+      'Entertainment': 'http://www.thehindu.com/features/friday-review/?service=rss',
+      'Finance': 'http://indianexpress.com/section/opinion/feed/',
+      'Sports': 'http://indianexpress.com/section/sports/feed/',
+      'Technology': 'http://indianexpress.com/section/technology/feed/',
+      'World':'http://indianexpress.com/section/world/feed/',
+      'Health':'http://indianexpress.com/section/lifestyle/feed/', 
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
+      'icon': 'india_express.png'
+    },
+    '9': {
+      'Top stories': 'http://www.thestar.com/feeds.topstories.rss',
+      'Entertainment': 'http://www.thestar.com/feeds.articles.entertainment.rss',
+      'Finance': 'http://www.thestar.com/feeds.articles.business.rss',
+      'Sports': 'http://www.thestar.com/feeds.articles.sports.rss',
+      'Technology': 'http://www.thestar.com/feeds.articles.opinion.editorials.rss', 
+      'World':'http://www.thestar.com/feeds.articles.news.world.rss',
+      'Health':'htttp://www.thestar.com/feeds.articles.life.health_wellness.rss',
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
+      'icon': 'star_news.jpg'
+    },
+    '10': {
+      'Top stories': 'http://zeenews.india.com/rss/india-national-news.xml',
+      'Entertainment': 'http://zeenews.india.com/rss/entertainment-news.xml',
+      'Finance': 'http://zeenews.india.com/rss/business.xml',
+      'Sports': 'http://zeenews.india.com/rss/sports-news.xml',
+      'Technology': 'http://zeenews.india.com/rss/technology-news.xml', 
+      'World':'http://zeenews.india.com/rss/world-news.xml',
+      'Health':'http://zeenews.india.com/rss/health-news.xml',
+      'Fashion':' http://indianexpress.com/section/lifestyle/fashion/feed/',
+      'icon': 'zee_news.png'
     },
     'PAGE_SIZE': 30
 });
@@ -323,7 +384,11 @@ app.controller("CategoryController", function($state,$scope, $stateParams, confi
                       {name: 'Entertainment', icon: 'img/entertainment.png'},
                       {name: 'Finance', icon: 'img/finance.png'},
                       {name: 'Sports', icon: 'img/sports.png'},
-                      {name: 'Technology', icon: 'img/technology.png'}];
+                      {name: 'Technology', icon: 'img/technology.png'},
+                      {name: 'Health', icon: 'img/health.png'},
+                      {name: 'World', icon: 'img/world.png'},
+                      {name: 'Fashion', icon: 'img/fashion.jpg'}];
+                      
   $scope.id = $stateParams.id;
 });
 

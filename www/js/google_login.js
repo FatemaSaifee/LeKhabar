@@ -1,50 +1,50 @@
 var googleLoginService = angular.module('GoogleLoginService', ['ionic']);
 googleLoginService.factory('timeStorage', function () {
-        var timeStorage = {};
-        timeStorage.cleanUp = function () {
-            var cur_time = new Date().getTime();
-            for (var i = 0; i < localStorage.length; i++) {
-                var key = localStorage.key(i);
-                if (key.indexOf('_expire') === -1) {
-                    var new_key = key + "_expire";
-                    var value = localStorage.getItem(new_key);
-                    if (value && cur_time > value) {
-                        localStorage.removeItem(key);
-                        localStorage.removeItem(new_key);
-                    }
+    var timeStorage = {};
+    timeStorage.cleanUp = function () {
+        var cur_time = new Date().getTime();
+        for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            if (key.indexOf('_expire') === -1) {
+                var new_key = key + "_expire";
+                var value = localStorage.getItem(new_key);
+                if (value && cur_time > value) {
+                    localStorage.removeItem(key);
+                    localStorage.removeItem(new_key);
                 }
             }
-        };
-        timeStorage.remove = function (key) {
-            this.cleanUp();
-            var time_key = key + '_expire';
-            localStorage.setItem(key, false);
-            localStorage.setItem(time_key, false);
-        };
-        timeStorage.set = function (key, data, hours) {
-            this.cleanUp();
-            localStorage.setItem(key, data);
-            var time_key = key + '_expire';
-            var time = new Date().getTime();
-            time = time + (hours * 1 * 60 * 60 * 1000);
-            localStorage.setItem(time_key, time);
-        };
-        timeStorage.get = function (key) {
-            this.cleanUp();
-            var time_key = key + "_expire";
-            if (!localStorage.getItem(time_key)) {
-                return false;
-            }
-            var expire = localStorage.getItem(time_key) * 1;
-            if (new Date().getTime() > expire) {
-                localStorage.setItem(key, null);
-                localStorage.setItem(time_key, null);
-                return false;
-            }
-            return localStorage.getItem(key);
-        };
-        return timeStorage;
-    })
+        }
+    };
+    timeStorage.remove = function (key) {
+        this.cleanUp();
+        var time_key = key + '_expire';
+        localStorage.setItem(key, false);
+        localStorage.setItem(time_key, false);
+    };
+    timeStorage.set = function (key, data, hours) {
+        this.cleanUp();
+        localStorage.setItem(key, data);
+        var time_key = key + '_expire';
+        var time = new Date().getTime();
+        time = time + (hours * 1 * 60 * 60 * 1000);
+        localStorage.setItem(time_key, time);
+    };
+    timeStorage.get = function (key) {
+        this.cleanUp();
+        var time_key = key + "_expire";
+        if (!localStorage.getItem(time_key)) {
+            return false;
+        }
+        var expire = localStorage.getItem(time_key) * 1;
+        if (new Date().getTime() > expire) {
+            localStorage.setItem(key, null);
+            localStorage.setItem(time_key, null);
+            return false;
+        }
+        return localStorage.getItem(key);
+    };
+    return timeStorage;
+})
 
 
 googleLoginService.factory('googleLogin', [
@@ -58,7 +58,6 @@ googleLoginService.factory('googleLogin', [
         service.scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.me';
         service.gulp = function (url, name) {
             url = url.substring(url.indexOf('?') + 1, url.length);
-
             return url.replace('code=', '');
         };
         service.authorize = function (options) {
