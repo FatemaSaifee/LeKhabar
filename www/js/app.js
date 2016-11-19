@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('webspeaksApp', ['ionic', 'ngSanitize'])
+var app = angular.module('webspeaksApp', ['ionic', 'ngSanitize', 'GoogleLoginService'])
 //integrate pouchDB
 var localDB = new PouchDB("webspeaksdb");
 
@@ -28,6 +28,12 @@ app.run(function($ionicPlatform) {
 //Define routes
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
+    .state('news_card', {
+        url: '/news_card',
+        templateUrl: "templates/news_card.html",
+        cache: false,
+        controller: 'NewsCardController'
+    })
     .state('news_detail', {
         url: '/news_detail/:id/:category',
         templateUrl: "templates/news_detail.html",
@@ -97,8 +103,8 @@ app.constant("config", {
 });
 
 //controller
-app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedService', '$ionicLoading', '$ionicPopup',
-    function($scope, $state, config, DAO, FeedService, $ionicLoading, $ionicPopup) {
+app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedService', '$ionicLoading', '$ionicPopup','googleLogin',
+    function($scope, $state, config, DAO, FeedService, $ionicLoading, $ionicPopup, googleLogin) {
     $scope.config = config;
     $scope.feeds = [];  // Feeds to be shown on UI
     $scope.localFeeds = []; // Feeds from local DB
@@ -217,8 +223,14 @@ app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedServic
       return (entry && entry.mediaGroups) ? entry.mediaGroups[0].contents[0] : {url : ''};
     }
 
+    $scope.login_user = function() {
+      googleLogin.startLogin();
+    }
+
     // Initialize the feeds
     // $scope.initFeed();
+    if(localStorage.getItem('google_access_token'))
+      $state.go('news_card')
 }]);
 
 //load feeds from url
@@ -291,6 +303,10 @@ app.service("DAO", function($q) {
 
 });
 
+app.controller("NewsCardController", function($state,$scope, $stateParams, config) {
+  $scope.config = config
+});
+
 app.controller("CategoryController", function($state,$scope, $stateParams, config) {
   $scope.categories = [{name: 'Top stories', icon: 'img/top_stories.png'},
                       {name: 'Entertainment', icon: 'img/entertainment.png'},
@@ -307,3 +323,4 @@ app.controller("DetailController", function($state,$scope, $stateParams, config)
   console.log($scope.icon);
   $scope.getRemoteFeed($scope.id, $scope.category);
 });
+
