@@ -85,9 +85,43 @@
 .scroll-content {
 	padding-top: 25px;
 }
-.app-header img{
+.app-header .profile-icon{
 	width: 40px;
     height: 40px;
-    margin-left: 200px;
+    margin-left: 170px;
     margin-top: -5px;
+}
+.app-header img{
+	width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+.profile-photo {
+	padding-top: 40px;
+	text-align: center;
+}
+.profile-photo img{
+	margin: 40px;
+	width: 200px;
+	height: 200px;
+}
+.profile-info {
+	font-size: 20px;
+}
+.logout {
+	background-color: white;
+	width:300px;
+	border:solid 1px red;
+	color: red;
+	height: 50px;
+	font-size: 20px;
+}
+.search {
+	min-width: 250px;
+	height: 40px;
+    margin-top: -5px;
+    border-radius: 20px;
+}
+.app-header .detail-profile-icon {
+	margin-left: 40px;
 }

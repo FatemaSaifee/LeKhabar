@@ -31,25 +31,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('news_card', {
         url: '/news_card',
         templateUrl: "templates/news_card.html",
-        cache: false,
         controller: 'NewsCardController'
     })
     .state('news_detail', {
         url: '/news_detail/:id/:category',
         templateUrl: "templates/news_detail.html",
-        cache: false,
         controller: 'DetailController'
     })
     .state('categories', {
         url: '/categories/:id',
         templateUrl: "templates/category.html",
-        cache: false,
         controller: 'CategoryController'
     })
     .state('user_profile', {
         url: '/user_profile',
         templateUrl: "templates/user_profile.html",
-        cache: false,
         controller: 'ProfileController'
     });
   $urlRouterProvider.otherwise('/');
@@ -170,8 +166,8 @@ app.constant("config", {
 });
 
 //controller
-app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedService', '$ionicLoading', '$ionicPopup','googleLogin',
-    function($scope, $state, config, DAO, FeedService, $ionicLoading, $ionicPopup, googleLogin) {
+app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedService', '$ionicLoading', '$ionicPopup','googleLogin','$window',
+    function($scope, $state, config, DAO, FeedService, $ionicLoading, $ionicPopup, googleLogin, $window) {
     $scope.config = config;
     $scope.feeds = [];  // Feeds to be shown on UI
     $scope.localFeeds = []; // Feeds from local DB
@@ -265,8 +261,8 @@ app.controller("AppController", ['$scope','$state', 'config', 'DAO', 'FeedServic
     /**
      * Called on "pull to refresh" action
      */
-    $scope.refreshFeed = function() {
-        $scope.getRemoteFeed();
+    $scope.refreshFeed = function(id, category) {
+        $scope.getRemoteFeed(id, category);
     };
 
     $scope.isOnline = function() {
@@ -371,12 +367,11 @@ app.service("DAO", function($q) {
 
 });
 
-app.controller("NewsCardController", function($state,$scope, $stateParams, config) {
+app.controller("NewsCardController", function($state,$scope, $stateParams, config, $location) {
   $scope.config = config;
-  $scope.logout = function() {
-    localStorage.removeItem('google_access_token');
-    localStorage.removeItem('google_access_token_expire');
-  }
+  $scope.goBack = function() {
+    window.history.back();
+  };
 });
 
 app.controller("CategoryController", function($state,$scope, $stateParams, config) {
@@ -390,6 +385,9 @@ app.controller("CategoryController", function($state,$scope, $stateParams, confi
                       {name: 'Fashion', icon: 'img/fashion.jpg'}];
                       
   $scope.id = $stateParams.id;
+  $scope.goBack = function() {
+    window.history.back();
+  };
 });
 
 app.controller("DetailController", function($state,$scope, $stateParams, config) {
@@ -398,5 +396,24 @@ app.controller("DetailController", function($state,$scope, $stateParams, config)
   $scope.icon = 'img/' + config[$scope.id]['icon'];
   console.log($scope.icon);
   $scope.getRemoteFeed($scope.id, $scope.category);
+  $scope.goBack = function() {
+    window.history.back();
+  };
+});
+
+app.controller("ProfileController", function($state,$scope, $stateParams, config, googleLogin) {
+  $scope.config = config;
+  $scope.name = localStorage.getItem('name');
+  $scope.picture = localStorage.getItem('picture');
+  $scope.email = localStorage.getItem('email');
+  console.log($scope.userInfo);
+  $scope.logout = function() {
+    localStorage.removeItem('google_access_token');
+    localStorage.removeItem('google_access_token_expire');
+    window.location = "http://localhost:8100";
+  }
+  $scope.goBack = function() {
+    window.history.back();
+  };
 });
 

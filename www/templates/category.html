@@ -1,10 +1,14 @@
 <ion-header-bar class="app-header">
-    LeKhabar
-    <img src="img/avatar.png" class="profile-icon" />
+	<a ng-click="goBack()"><img src="img/left_arrow.png" /></a>
+    <span class="item item-input search">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text" placeholder="Search Categories" data-ng-model="searchCategory">
+    </span>
+    <a href="/#/user_profile"><img src="img/avatar.png" class="profile-icon detail-profile-icon" /></a>
 </ion-header-bar>
 <ion-content ng-controller= "CategoryController">
 	<ion-list>
-		<ion-item ng-repeat="category in categories" class="">
+		<ion-item ng-repeat="category in categories | filter: searchCategory" class="">
 		  	<a ng-href = "/#/news_detail/{{id}}/{{category['name']}}" class="no-line">
 			  <ion-thumbnail item-left>
 			    <img ng-src="{{category['icon']}}" class="cat-image" >

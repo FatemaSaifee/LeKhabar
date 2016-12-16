@@ -1,13 +1,14 @@
 <ion-header-bar class="app-header">
+    <a ng-click="goBack()"><img src="img/left_arrow.png" /></a>
     LeKhabar
-    <a href="/#/" ng-click="logout()"><img src="img/avatar.png" class="profile-icon" /></a>
+    <a href="/#/user_profile"><img src="img/avatar.png" class="profile-icon" /></a>
 </ion-header-bar>
 
 <ion-content ng-controller= "NewsCardController">
     <ion-refresher pulling-text="Pull to Refresh..." on-refresh="refreshFeed()"></ion-refresher>
     
     <ion-list>
-        <ion-item class="">
+        <ion-item class="news-card">
             <div class="row">
               <div class="col col-40 news" >
                 <a href="/#/categories/1">

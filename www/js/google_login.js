@@ -67,7 +67,7 @@ googleLoginService.factory('googleLogin', [
             var access_token = timeStorage.get('google_access_token');
             if (access_token) {
                 $log.info('Direct Access Token :' + access_token);
-                service.getUserInfo(access_token, def);
+                var x = service.getUserInfo(access_token);
             } else {
 
                 var params = 'client_id=' + encodeURIComponent(options.client_id);
@@ -76,7 +76,7 @@ googleLoginService.factory('googleLogin', [
                 params += '&scope=' + encodeURIComponent(options.scope);
                 var authUrl = 'https://accounts.google.com/o/oauth2/auth?' + params;
 
-                var win = window.open(authUrl, '_blank', 'location=no,toolbar=no,width=800, height=800');
+                var win = window.open(authUrl, '_blank', 'location=no,toolbar=no');
                 var context = this;
 
                 if (ionic.Platform.isWebView()) {
@@ -148,15 +148,15 @@ googleLoginService.factory('googleLogin', [
                 timeStorage.set('google_access_token', access_token, expires_in);
                 if (access_token) {
                     $log.info('Access Token :' + access_token);
-                    context.getUserInfo(access_token, def);
+                    var x = context.getUserInfo(access_token);
                 } else {
                     def.reject({error: 'Access Token Not Found'});
                 }
             });
         };
-        service.getUserInfo = function (access_token, def) {
+        service.getUserInfo = function (access_token) {
             var http = $http({
-                url: 'https://www.googleapis.com/oauth2/v3/userinfo',
+                url: 'https://www.googleapis.com/oauth2/v1/userinfo',
                 method: 'GET',
                 params: {
                     access_token: access_token
@@ -165,6 +165,7 @@ googleLoginService.factory('googleLogin', [
             http.then(function (data) {
                 $log.debug(data);
                 var user_data = data.data;
+                console.log(user_data);
                 var user = {
                     name: user_data.name,
                     gender: user_data.gender,
@@ -173,7 +174,10 @@ googleLoginService.factory('googleLogin', [
                     picture: user_data.picture,
                     profile: user_data.profile
                 };
-                def.resolve(user);
+                localStorage.setItem('name', user_data.name);
+                localStorage.setItem('email', user_data.email);
+                localStorage.setItem('picture', user_data.picture);
+                return service;
             });
         };
         service.getUserFriends = function () {

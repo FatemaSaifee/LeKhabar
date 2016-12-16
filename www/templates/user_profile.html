@@ -1,0 +1,25 @@
+<ion-header-bar class="app-header">
+  <a ng-click="goBack()"><img src="img/left_arrow.png" /></a>
+  LeKhabar
+</ion-header-bar>
+
+<ion-content ng-controller= "ProfileController">
+    <ion-refresher pulling-text="Pull to Refresh..." on-refresh="refreshFeed()"></ion-refresher>
+    
+    <ion-card>
+      <div class='profile-photo'>
+        <img src="{{picture}}">
+      </div>
+      <ion-list inset>
+        <ion-item class="profile-info">
+          Name: {{name}}
+        </ion-item>
+        <ion-item class="profile-info">
+          Email: {{email}}
+        </ion-item>
+        <ion-item class="profile-info">
+          <center><button ng-click="logout()" class="logout">Logout</button></center>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+</ion-content>

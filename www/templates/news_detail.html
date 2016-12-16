@@ -1,12 +1,16 @@
 <ion-header-bar class="app-header">
-    LeKhabar
+    <a ng-click="goBack()"><img src="img/left_arrow.png" /></a>
+    <span class="item item-input search">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text" placeholder="Search News" data-ng-model="searchNews">
+    </span>
+    <a href="/#/user_profile"><img src="img/avatar.png" class="profile-icon detail-profile-icon" /></a>
 </ion-header-bar>
 <ion-content ng-controller="DetailController">
-
-    <ion-refresher pulling-text="Pull to Refresh..." on-refresh="refreshFeed()"></ion-refresher>
+    <ion-refresher pulling-text="Pull to Refresh..." on-refresh="refreshFeed(id, category)"></ion-refresher>
 
     <ion-list>
-        <ion-item ng-repeat="feed in feeds" class="">
+        <ion-item ng-repeat="feed in feeds | filter:searchNews" class="">
 
           <ion-card>
             <div class="list card">
